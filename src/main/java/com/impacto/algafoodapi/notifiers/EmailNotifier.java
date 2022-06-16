@@ -1,10 +1,9 @@
 package com.impacto.algafoodapi.notifiers;
 
 import com.impacto.algafoodapi.model.Client;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-@Primary
+@NotifierType(UrgenceLevel.LOW)
 @Component
 public class EmailNotifier implements Notifier {
     @Override

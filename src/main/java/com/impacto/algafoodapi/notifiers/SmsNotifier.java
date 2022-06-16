@@ -3,6 +3,7 @@ package com.impacto.algafoodapi.notifiers;
 import com.impacto.algafoodapi.model.Client;
 import org.springframework.stereotype.Component;
 
+@NotifierType(UrgenceLevel.HIGH)
 @Component
 public class SmsNotifier implements Notifier {
     @Override
