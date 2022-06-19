@@ -1,17 +1,14 @@
-package com.impacto.algafoodapi.model;
+package com.impacto.algafoodapi.domain.model;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Restaurant {
+public class City {
 
     @EqualsAndHashCode.Include
     @Id
@@ -21,10 +18,7 @@ public class Restaurant {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private BigDecimal freightRate;
-
     @ManyToOne
-    private Cookery cookery;
-
+    @JoinColumn(nullable = false)
+    private State state;
 }
