@@ -1,4 +1,4 @@
-package com.impacto.algafoodapi.domain.model;
+package com.impacto.algafood.domain.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class FormPayment {
+public class Cookery {
 
     @EqualsAndHashCode.Include
     @Id
@@ -16,5 +16,6 @@ public class FormPayment {
     private Long id;
 
     @Column(nullable = false)
-    private String description;
+    private String name;
+
 }

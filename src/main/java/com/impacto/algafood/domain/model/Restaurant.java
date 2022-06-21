@@ -1,14 +1,15 @@
-package com.impacto.algafoodapi.domain.model;
+package com.impacto.algafood.domain.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Permission {
+public class Restaurant {
 
     @EqualsAndHashCode.Include
     @Id
@@ -19,5 +20,10 @@ public class Permission {
     private String name;
 
     @Column(nullable = false)
-    private String description;
+    private BigDecimal freightRate;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Cookery cookery;
+
 }

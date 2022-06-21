@@ -1,4 +1,4 @@
-package com.impacto.algafoodapi.domain.model;
+package com.impacto.algafood.domain.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Cookery {
+public class Permission {
 
     @EqualsAndHashCode.Include
     @Id
@@ -18,4 +18,6 @@ public class Cookery {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String description;
 }
