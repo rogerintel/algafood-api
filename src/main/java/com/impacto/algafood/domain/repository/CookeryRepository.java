@@ -9,6 +9,6 @@ public interface CookeryRepository {
     List<Cookery> getAll();
     Cookery getById(Long id);
     Cookery save(Cookery cookery);
-    void delete(Cookery cookery);
+    void delete(Long id);
 
 }
