@@ -14,11 +14,11 @@ public class RestaurantService {
     private RestaurantRepository restaurantRepository;
 
     public List<Restaurant> list() {
-        return restaurantRepository.getAll();
+        return restaurantRepository.findAll();
     }
 
     public Restaurant find(Long id) {
-        return restaurantRepository.getById(id);
+        return restaurantRepository.findById(id).orElse(null);
     }
 
     public Restaurant save(Restaurant restaurant) {
@@ -26,7 +26,7 @@ public class RestaurantService {
     }
 
     public void delete(Long id) {
-        restaurantRepository.delete(id);
+        restaurantRepository.deleteById(id);
     }
 
 }

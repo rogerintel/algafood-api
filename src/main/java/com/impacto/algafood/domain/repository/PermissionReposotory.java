@@ -1,12 +1,10 @@
 package com.impacto.algafood.domain.repository;
 
 import com.impacto.algafood.domain.model.Permission;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-public interface PermissionReposotory {
-    List<Permission> getAll();
-    Permission getById(Long id);
-    Permission save(Permission permission);
-    void delete(Long id);
+@Repository
+public interface PermissionReposotory extends JpaRepository<Permission, Long> {
 }

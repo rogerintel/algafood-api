@@ -1,10 +1,7 @@
 package com.impacto.algafood.api.controller;
 
 import com.impacto.algafood.domain.model.Cookery;
-import com.impacto.algafood.domain.repository.CityRepository;
-import com.impacto.algafood.domain.repository.CookeryRepository;
 import com.impacto.algafood.domain.service.CookeryService;
-import com.impacto.algafood.infraestruture.repository.CookeryRepositoryImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,28 +11,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cookerys")
 public class CookeryController {
 
     @Autowired
-    private CookeryRepository repository;
-    @Autowired
     private CookeryService service;
 
     @GetMapping
     public List<Cookery> list() {
-        return repository.getAll();
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Cookery> find(@PathVariable Long id) {
-        Cookery cookery = repository.getById(id);
+        Optional<Cookery> cookery = service.findById(id);
 
-        if (cookery != null) {
-            return ResponseEntity.ok(cookery);
+        if (cookery.isPresent()) {
+            return ResponseEntity.ok(cookery.get());
         }
+
         return ResponseEntity.notFound().build();
     }
 
@@ -47,14 +44,15 @@ public class CookeryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Cookery> update(@PathVariable Long id, @RequestBody Cookery cookery) {
-        Cookery currentCookery = repository.getById(id);
 
-        if(currentCookery == null)
+        Optional<Cookery> currentCookery = service.findById(id);
+
+        if (currentCookery.isEmpty()) {
             return ResponseEntity.notFound().build();
+        }
 
-        BeanUtils.copyProperties(cookery, currentCookery, "id");
-        currentCookery = service.save(cookery);
-        return ResponseEntity.ok(currentCookery);
+        BeanUtils.copyProperties(cookery, currentCookery.get(), "id");
+        return ResponseEntity.ok(service.save(currentCookery.get()));
     }
 
     @DeleteMapping("/{id}")
