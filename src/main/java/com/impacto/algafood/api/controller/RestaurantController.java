@@ -1,7 +1,7 @@
 package com.impacto.algafood.api.controller;
 
-import com.impacto.algafood.domain.model.Restaurant;
-import com.impacto.algafood.domain.service.RestaurantService;
+import com.impacto.algafood.domain.model.Restaurante;
+import com.impacto.algafood.domain.service.CadastroRestauranteService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,45 +16,45 @@ import java.util.List;
 public class RestaurantController {
 
     @Autowired
-    private RestaurantService restaurantService;
+    private CadastroRestauranteService cadastroRestauranteService;
 
     @GetMapping
-    public List<Restaurant> list() {
-        return restaurantService.list();
+    public List<Restaurante> list() {
+        return cadastroRestauranteService.list();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> find(@PathVariable Long id) {
-        Restaurant restaurant = restaurantService.find(id);
+    public ResponseEntity<Restaurante> find(@PathVariable Long id) {
+        Restaurante restaurante = cadastroRestauranteService.find(id);
 
-        if (restaurant != null) {
-            return ResponseEntity.ok(restaurant);
+        if (restaurante != null) {
+            return ResponseEntity.ok(restaurante);
         }
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> add(@RequestBody Restaurant restaurant) {
+    public ResponseEntity<?> add(@RequestBody Restaurante restaurante) {
         try {
-            restaurantService.save(restaurant);
-            return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
+            cadastroRestauranteService.save(restaurante);
+            return ResponseEntity.status(HttpStatus.CREATED).body(restaurante);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Restaurant restaurant) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Restaurante restaurante) {
         try {
-            Restaurant currentRestaurant = restaurantService.find(id);
+            Restaurante currentRestaurante = cadastroRestauranteService.find(id);
 
-            if(currentRestaurant == null)
+            if(currentRestaurante == null)
                 return ResponseEntity.notFound().build();
 
-            BeanUtils.copyProperties(restaurant, currentRestaurant, "id");
-            currentRestaurant = restaurantService.save(currentRestaurant);
-            return ResponseEntity.ok(currentRestaurant);
+            BeanUtils.copyProperties(restaurante, currentRestaurante, "id");
+            currentRestaurante = cadastroRestauranteService.save(currentRestaurante);
+            return ResponseEntity.ok(currentRestaurante);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

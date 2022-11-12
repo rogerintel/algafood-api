@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class State {
+public class Permissao {
 
     @EqualsAndHashCode.Include
     @Id
@@ -16,5 +16,8 @@ public class State {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String nome;
+
+    @Column(nullable = false)
+    private String descricao;
 }

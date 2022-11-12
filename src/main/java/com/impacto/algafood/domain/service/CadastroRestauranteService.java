@@ -1,6 +1,6 @@
 package com.impacto.algafood.domain.service;
 
-import com.impacto.algafood.domain.model.Restaurant;
+import com.impacto.algafood.domain.model.Restaurante;
 import com.impacto.algafood.domain.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,21 +8,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RestaurantService {
+public class CadastroRestauranteService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
 
-    public List<Restaurant> list() {
+    public List<Restaurante> list() {
         return restaurantRepository.findAll();
     }
 
-    public Restaurant find(Long id) {
+    public Restaurante find(Long id) {
         return restaurantRepository.findById(id).orElse(null);
     }
 
-    public Restaurant save(Restaurant restaurant) {
-        return restaurantRepository.save(restaurant);
+    public Restaurante save(Restaurante restaurante) {
+        return restaurantRepository.save(restaurante);
     }
 
     public void delete(Long id) {

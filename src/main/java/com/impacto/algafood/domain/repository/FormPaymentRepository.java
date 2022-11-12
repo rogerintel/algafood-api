@@ -1,11 +1,9 @@
 package com.impacto.algafood.domain.repository;
 
-import com.impacto.algafood.domain.model.FormPayment;
+import com.impacto.algafood.domain.model.FormaPagamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface FormPaymentRepository extends JpaRepository<FormPayment, Long> {
+public interface FormPaymentRepository extends JpaRepository<FormaPagamento, Long> {
 }

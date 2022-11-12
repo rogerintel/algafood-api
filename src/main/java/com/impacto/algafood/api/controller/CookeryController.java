@@ -1,7 +1,7 @@
 package com.impacto.algafood.api.controller;
 
-import com.impacto.algafood.domain.model.Cookery;
-import com.impacto.algafood.domain.service.CookeryService;
+import com.impacto.algafood.domain.model.Cozinha;
+import com.impacto.algafood.domain.service.CadastroCozinhaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,16 +18,16 @@ import java.util.Optional;
 public class CookeryController {
 
     @Autowired
-    private CookeryService service;
+    private CadastroCozinhaService service;
 
     @GetMapping
-    public List<Cookery> list() {
+    public List<Cozinha> list() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cookery> find(@PathVariable Long id) {
-        Optional<Cookery> cookery = service.findById(id);
+    public ResponseEntity<Cozinha> find(@PathVariable Long id) {
+        Optional<Cozinha> cookery = service.findById(id);
 
         if (cookery.isPresent()) {
             return ResponseEntity.ok(cookery.get());
@@ -38,25 +38,25 @@ public class CookeryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cookery add(@RequestBody Cookery cookery) {
-        return service.save(cookery);
+    public Cozinha add(@RequestBody Cozinha cozinha) {
+        return service.save(cozinha);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cookery> update(@PathVariable Long id, @RequestBody Cookery cookery) {
+    public ResponseEntity<Cozinha> update(@PathVariable Long id, @RequestBody Cozinha cozinha) {
 
-        Optional<Cookery> currentCookery = service.findById(id);
+        Optional<Cozinha> currentCookery = service.findById(id);
 
         if (currentCookery.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        BeanUtils.copyProperties(cookery, currentCookery.get(), "id");
+        BeanUtils.copyProperties(cozinha, currentCookery.get(), "id");
         return ResponseEntity.ok(service.save(currentCookery.get()));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Cookery> delete(@PathVariable Long id) {
+    public ResponseEntity<Cozinha> delete(@PathVariable Long id) {
         try {
             service.delete(id);
             return ResponseEntity.noContent().build();
