@@ -1,5 +1,8 @@
 package com.impacto.algafood.api.controller;
 
+import com.impacto.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.impacto.algafood.domain.exception.EstadoNaoEncontradoException;
+import com.impacto.algafood.domain.exception.NegocioException;
 import com.impacto.algafood.domain.model.Cidade;
 import com.impacto.algafood.domain.repository.CidadeRepository;
 import com.impacto.algafood.domain.service.CadastroCidadeService;
@@ -39,9 +42,13 @@ public class CidadeController {
     @PutMapping("/{cidadeId}")
     public Cidade atualizar(@PathVariable Long cidadeId,
                             @RequestBody Cidade cidade) {
-        Cidade cidadeAtual = cadastroCidade.buscarOuFalhar(cidadeId);
-        BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-        return cadastroCidade.salvar(cidadeAtual);
+        try {
+            Cidade cidadeAtual = cadastroCidade.buscarOuFalhar(cidadeId);
+            BeanUtils.copyProperties(cidade, cidadeAtual, "id");
+            return cadastroCidade.salvar(cidadeAtual);
+        } catch (EstadoNaoEncontradoException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
     }
 
     @DeleteMapping("/{cidadeId}")
