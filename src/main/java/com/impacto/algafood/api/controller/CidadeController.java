@@ -60,21 +60,4 @@ public class CidadeController {
         cadastroCidade.excluir(cidadeId);
     }
 
-    @ExceptionHandler(EntidadeNaoEncontradaException.class)
-    public ResponseEntity<Problema> tratarEntidadeNaoEncontradaException(EntidadeNaoEncontradaException e) {
-        Problema problema = Problema.builder()
-                .dataHora(LocalDateTime.now())
-                .mensagem(e.getMessage())
-                .build();
-        return ResponseEntity.badRequest().body(problema);
-    }
-
-    @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<Problema> tratarNegocioException(NegocioException e) {
-        Problema problema = Problema.builder()
-                .dataHora(LocalDateTime.now())
-                .mensagem(e.getMessage())
-                .build();
-        return ResponseEntity.badRequest().body(problema);
-    }
 }
