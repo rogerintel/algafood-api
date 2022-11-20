@@ -14,7 +14,7 @@
     <name>algafood-api</name>
     <description>algafood-api</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <snakeyaml.version>1.33</snakeyaml.version>
     </properties>
     <dependencies>
