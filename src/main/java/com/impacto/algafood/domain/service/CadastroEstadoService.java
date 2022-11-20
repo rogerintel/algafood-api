@@ -1,7 +1,6 @@
 package com.impacto.algafood.domain.service;
 
 import com.impacto.algafood.domain.exception.EntidadeEmUsoException;
-import com.impacto.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.impacto.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.impacto.algafood.domain.model.Estado;
 import com.impacto.algafood.domain.repository.EstadoRepository;

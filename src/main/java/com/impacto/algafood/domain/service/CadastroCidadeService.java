@@ -2,12 +2,9 @@ package com.impacto.algafood.domain.service;
 
 import com.impacto.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.impacto.algafood.domain.exception.EntidadeEmUsoException;
-import com.impacto.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.impacto.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.impacto.algafood.domain.model.Cidade;
 import com.impacto.algafood.domain.model.Estado;
 import com.impacto.algafood.domain.repository.CidadeRepository;
-import com.impacto.algafood.domain.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;

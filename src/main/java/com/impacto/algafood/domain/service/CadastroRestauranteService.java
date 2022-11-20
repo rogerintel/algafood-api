@@ -1,10 +1,8 @@
 package com.impacto.algafood.domain.service;
 
-import com.impacto.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.impacto.algafood.domain.exception.RestauranteNaoEncontradaException;
 import com.impacto.algafood.domain.model.Cozinha;
 import com.impacto.algafood.domain.model.Restaurante;
-import com.impacto.algafood.domain.repository.CozinhaRepository;
 import com.impacto.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

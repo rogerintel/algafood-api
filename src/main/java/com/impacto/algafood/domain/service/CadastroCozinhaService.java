@@ -2,7 +2,6 @@ package com.impacto.algafood.domain.service;
 
 import com.impacto.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.impacto.algafood.domain.exception.EntidadeEmUsoException;
-import com.impacto.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.impacto.algafood.domain.model.Cozinha;
 import com.impacto.algafood.domain.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
