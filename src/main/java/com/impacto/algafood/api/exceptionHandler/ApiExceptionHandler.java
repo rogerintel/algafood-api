@@ -1,5 +1,6 @@
 package com.impacto.algafood.api.exceptionHandler;
 
+import com.impacto.algafood.domain.exception.EntidadeEmUsoException;
 import com.impacto.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.impacto.algafood.domain.exception.NegocioException;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +19,17 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException e, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         PloblemType problemType = PloblemType.ENTIDADE_NAO_ENCONTRADA;
+        String detail = e.getMessage();
+
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+
+        return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
+    }
+    
+    @ExceptionHandler(EntidadeEmUsoException.class)
+    public ResponseEntity<Object> handleEntidadeEmUsoException(EntidadeEmUsoException e, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        PloblemType problemType = PloblemType.ENTIDADE_EM_USO;
         String detail = e.getMessage();
 
         Problem problem = createProblemBuilder(status, problemType, detail).build();
@@ -43,11 +55,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .type(problemType.getUri())
                 .title(problemType.getTitle())
                 .detail(detail);
-    }
-
-    @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<Object> tratarNegocioException(NegocioException e, WebRequest request) {
-        return handleExceptionInternal(e, e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @Override
