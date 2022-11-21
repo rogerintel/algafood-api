@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum PloblemType {
 
+    MENSAGEM_INCOMPREENSIVEL("Mensagem incopreensivel", "/mensagem-incopreensivel"),
     ENTIDADE_NAO_ENCONTRADA("Entidade não encontrada", "/entidade-nao-encontrada"),
     ERRO_NEGOCIO("Erro de negócio", "/erro-negocio"),
     ENTIDADE_EM_USO("Entidade em uso", "/entidade-em-uso");
