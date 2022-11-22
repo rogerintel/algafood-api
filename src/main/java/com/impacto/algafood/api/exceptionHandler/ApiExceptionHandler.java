@@ -2,6 +2,7 @@ package com.impacto.algafood.api.exceptionHandler;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import com.impacto.algafood.domain.exception.EntidadeEmUsoException;
 import com.impacto.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.impacto.algafood.domain.exception.NegocioException;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -30,6 +32,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         if (rootCause instanceof InvalidFormatException) {
             return handleInvalidFormatException((InvalidFormatException) rootCause, headers, status, request);
         }
+        if (rootCause instanceof PropertyBindingException) {
+            return handlePropertyBindingException((PropertyBindingException) rootCause, headers, status, request);
+        }
         PloblemType ploblemType = PloblemType.MENSAGEM_INCOMPREENSIVEL;
         String detail = "O corpo da reuisição está inválido. Verifique erro de sintaxe";
 
@@ -38,12 +43,28 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, problem, headers, status, request);
     }
 
+    private ResponseEntity<Object> handlePropertyBindingException(PropertyBindingException rootCause, HttpHeaders headers,
+                                                                  HttpStatus status, WebRequest request) {
+        String path = joinPath(rootCause.getPath());
+        PloblemType ploblemType = PloblemType.MENSAGEM_INCOMPREENSIVEL;
+        String detail = String.format("A propriedade '%s' não existe. " +
+                "Corrija ou remova essa propriedade e tente novamente.", path);
+
+        Problem problem = createProblemBuilder(status, ploblemType, detail).build();
+
+        return super.handleExceptionInternal(rootCause, problem, headers, status, request);
+    }
+
+    private String joinPath(List<JsonMappingException.Reference> path) {
+        return path.stream()
+                .map(JsonMappingException.Reference::getFieldName)
+                .collect(Collectors.joining("."));
+    }
+
     private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException rootCause, HttpHeaders headers,
                                                                 HttpStatus status, WebRequest request) {
 
-        String path = rootCause.getPath().stream()
-                .map(JsonMappingException.Reference::getFieldName)
-                .collect(Collectors.joining("."));
+        String path = joinPath(rootCause.getPath());
 
         PloblemType ploblemType = PloblemType.MENSAGEM_INCOMPREENSIVEL;
         String detail = String.format("A propriedade '%s' recebeu o valor '%s', que é de um tipo inválido. " +
