@@ -1,4 +1,4 @@
-package com.impacto.algafood;
+package com.impacto.algafood.core.validation;
 
 public interface Groups {
 

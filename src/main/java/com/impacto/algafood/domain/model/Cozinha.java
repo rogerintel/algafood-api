@@ -1,7 +1,7 @@
 package com.impacto.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.impacto.algafood.Groups;
+import com.impacto.algafood.core.validation.Groups;
 import lombok.*;
 import org.hibernate.Hibernate;
 
