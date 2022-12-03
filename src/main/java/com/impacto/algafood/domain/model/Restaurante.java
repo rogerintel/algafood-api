@@ -2,7 +2,7 @@ package com.impacto.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.impacto.algafood.core.validation.Groups;
-import com.impacto.algafood.core.validation.TaxaFrete;
+import com.impacto.algafood.core.validation.Multiplo;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,8 +37,8 @@ public class Restaurante {
     private String nome;
 
     @NotNull
-//    @PositiveOrZero
-    @TaxaFrete
+    @PositiveOrZero
+    @Multiplo(numero = 5)
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
