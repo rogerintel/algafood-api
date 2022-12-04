@@ -2,7 +2,6 @@ package com.impacto.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.impacto.algafood.core.validation.Groups;
-import com.impacto.algafood.core.validation.ValorZeroIncluiDescricao;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@ValorZeroIncluiDescricao(valorField = "taxaFrete", descricaoField = "nome", descricaoObrigatoria = "Frete Grátis")
 @Getter
 @Setter
 @ToString
