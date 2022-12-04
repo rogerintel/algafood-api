@@ -1,5 +1,6 @@
 package com.impacto.algafood;
 
+import com.impacto.algafood.domain.exception.EntidadeEmUsoException;
 import com.impacto.algafood.domain.model.Cozinha;
 import com.impacto.algafood.domain.service.CadastroCozinhaService;
 import org.junit.jupiter.api.Test;
@@ -32,5 +33,15 @@ public class CadastroCozinhaIntegrationTests {
         novaCozinha.setNome(null);
         ConstraintViolationException erroEsperado = assertThrows(ConstraintViolationException.class, () -> cadastroCozinha.salvar(novaCozinha));
         assertThat(erroEsperado).isNotNull();
+    }
+
+    @Test
+    public void deveFalhar_QuandoExcluirCozinhaEmUso() {
+        assertThrows(EntidadeEmUsoException.class, () -> cadastroCozinha.excluir(1L));
+    }
+
+    @Test
+    public void deveFalhar_QuandoExcluirCozinhaInexistente() {
+        assertThrows(EntidadeEmUsoException.class, () -> cadastroCozinha.excluir(100L));
     }
 }
