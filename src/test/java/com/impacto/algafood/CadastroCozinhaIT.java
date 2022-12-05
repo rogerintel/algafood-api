@@ -40,7 +40,18 @@ public class CadastroCozinhaIT {
         .when()
                 .get()
         .then()
-                .body("", org.hamcrest.Matchers.hasSize(4))
-                .body("nome", org.hamcrest.Matchers.hasItems("Indiana", "Tailandesa"));
+                .body("", org.hamcrest.Matchers.hasSize(4));
+    }
+
+    @Test
+    public void deveRetornarStatus201_QuandoCadastrarCozinha() {
+        given()
+                .body("{ \"nome\": \"Chinesa\" }")
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+        .when()
+                .post()
+        .then()
+                .statusCode(HttpStatus.CREATED.value());
     }
 }
