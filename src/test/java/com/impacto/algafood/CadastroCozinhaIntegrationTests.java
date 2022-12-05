@@ -1,5 +1,6 @@
 package com.impacto.algafood;
 
+import com.impacto.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.impacto.algafood.domain.exception.EntidadeEmUsoException;
 import com.impacto.algafood.domain.model.Cozinha;
 import com.impacto.algafood.domain.service.CadastroCozinhaService;
@@ -42,6 +43,6 @@ public class CadastroCozinhaIntegrationTests {
 
     @Test
     public void deveFalhar_QuandoExcluirCozinhaInexistente() {
-        assertThrows(EntidadeEmUsoException.class, () -> cadastroCozinha.excluir(100L));
+        assertThrows(CozinhaNaoEncontradaException.class, () -> cadastroCozinha.excluir(100L));
     }
 }
