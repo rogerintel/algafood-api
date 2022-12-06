@@ -9,7 +9,6 @@ import com.impacto.algafood.domain.exception.NegocioException;
 import com.impacto.algafood.domain.model.Restaurante;
 import com.impacto.algafood.domain.repository.RestauranteRepository;
 import com.impacto.algafood.domain.service.CadastroRestauranteService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -57,14 +56,10 @@ public class RestauranteController {
 
     @PutMapping("/{restauranteId}")
     public RestauranteModel atualizar(@PathVariable Long restauranteId,
-                                 @RequestBody @Valid Restaurante restaurante) {
-
+                                 @RequestBody @Valid RestauranteInput restauranteInput) {
         try {
             Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(restauranteId);
-
-            BeanUtils.copyProperties(restaurante, restauranteAtual,
-                    "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
-
+            restaurnateInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
             return restauranteModelAssembler.toModel(cadastroRestaurante.salvar(restauranteAtual));
         } catch (CozinhaNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
