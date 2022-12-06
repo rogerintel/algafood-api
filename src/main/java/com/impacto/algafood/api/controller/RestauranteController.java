@@ -1,5 +1,6 @@
 package com.impacto.algafood.api.controller;
 
+import com.impacto.algafood.api.model.RestauranteModel;
 import com.impacto.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.impacto.algafood.domain.exception.NegocioException;
 import com.impacto.algafood.domain.model.Restaurante;
@@ -29,8 +30,10 @@ public class RestauranteController {
     }
 
     @GetMapping("/{restauranteId}")
-    public Restaurante buscar(@PathVariable Long restauranteId) {
-        return cadastroRestaurante.buscarOuFalhar(restauranteId);
+    public RestauranteModel buscar(@PathVariable Long restauranteId) {
+        Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
+
+        return new RestauranteModel();
     }
 
     @PostMapping
