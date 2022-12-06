@@ -1,6 +1,5 @@
 package com.impacto.algafood.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.impacto.algafood.core.validation.Groups;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -29,7 +28,6 @@ public class Cozinha {
     @Column(nullable = false)
     private String nome;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "cozinha")
     @ToString.Exclude
     private List<Restaurante> restaurantes = new ArrayList<>();
