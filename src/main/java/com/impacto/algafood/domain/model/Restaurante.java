@@ -1,17 +1,12 @@
 package com.impacto.algafood.domain.model;
 
-import com.impacto.algafood.core.validation.Groups;
+import com.impacto.algafood.api.model.CozinhaModel;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.groups.ConvertGroup;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -30,18 +25,12 @@ public class Restaurante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Column(nullable = false)
     private String nome;
 
-    @NotNull
-    @PositiveOrZero
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
-    @Valid
-    @NotNull
-    @ConvertGroup(to = Groups.CozinhaId.class)
     @ManyToOne
     @JoinColumn(name = "cozinha_id", nullable = false)
     private Cozinha cozinha;
@@ -67,6 +56,13 @@ public class Restaurante {
     @OneToMany(mappedBy = "restaurante")
     @ToString.Exclude
     private List<Produto> produtos = new ArrayList<>();
+
+    public Restaurante(String nome, BigDecimal taxaFrete, CozinhaModel cozinhaModel) {
+        this.nome = nome;
+        this.taxaFrete = taxaFrete;
+        this.cozinha = new Cozinha();
+        this.cozinha.setId(cozinhaModel.getId());
+    }
 
     @Override
     public boolean equals(Object o) {
