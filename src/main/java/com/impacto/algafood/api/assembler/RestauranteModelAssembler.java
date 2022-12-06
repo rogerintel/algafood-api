@@ -3,10 +3,12 @@ package com.impacto.algafood.api.assembler;
 import com.impacto.algafood.api.model.CozinhaModel;
 import com.impacto.algafood.api.model.RestauranteModel;
 import com.impacto.algafood.domain.model.Restaurante;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class RestauranteModelAssembler {
     public RestauranteModelAssembler() {
     }
