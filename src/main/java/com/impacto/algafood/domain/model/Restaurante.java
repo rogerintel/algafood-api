@@ -1,6 +1,7 @@
 package com.impacto.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.impacto.algafood.core.validation.Groups;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -40,6 +41,7 @@ public class Restaurante {
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
+    @JsonIgnoreProperties(value = "nome", allowGetters = true)
     @Valid
     @NotNull
     @ConvertGroup(to = Groups.CozinhaId.class)
