@@ -1,8 +1,10 @@
 package com.impacto.algafood;
 
+import com.impacto.algafood.domain.model.Cozinha;
+import com.impacto.algafood.domain.repository.CozinhaRepository;
+import com.impacto.algafood.util.DatabaseCleaner;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.hasSize;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
@@ -21,15 +24,30 @@ public class CadastroCozinhaIT {
     private int port;
 
     @Autowired
-    private Flyway flyway;
+    private DatabaseCleaner databaseCleaner;
+
+    @Autowired
+    private CozinhaRepository cozinhaRepository;
 
     @BeforeEach
     public void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
         RestAssured.basePath = "/cozinhas";
+        
+        databaseCleaner.clearTables();
+        prepararDados();
 
-        flyway.migrate();
+    }
+
+    private void prepararDados() {
+        Cozinha cozinha1 = new Cozinha();
+        cozinha1.setNome("Tailandesa");
+        cozinhaRepository.save(cozinha1);
+
+        Cozinha cozinha2 = new Cozinha();
+        cozinha2.setNome("Americana");
+        cozinhaRepository.save(cozinha2);
     }
 
     @Test
@@ -43,13 +61,13 @@ public class CadastroCozinhaIT {
     }
 
     @Test
-    public void deveConter4Cozinhas_QuandoConsultarCozinhas() {
+    public void deveConter2Cozinhas_QuandoConsultarCozinhas() {
         given()
                 .accept(ContentType.JSON)
         .when()
                 .get()
         .then()
-                .body("", org.hamcrest.Matchers.hasSize(4));
+                .body("", hasSize(2));
     }
 
     @Test
