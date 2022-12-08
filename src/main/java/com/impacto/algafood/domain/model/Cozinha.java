@@ -4,7 +4,6 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +20,6 @@ public class Cozinha {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Column(nullable = false)
     private String nome;
 
