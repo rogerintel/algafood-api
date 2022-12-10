@@ -56,6 +56,7 @@ public class Restaurante {
     @OneToMany(mappedBy = "restaurante")
     @ToString.Exclude
     private List<Produto> produtos = new ArrayList<>();
+    private boolean ativo = Boolean.TRUE;
 
     public Restaurante(String nome, BigDecimal taxaFrete, CozinhaModel cozinhaModel) {
         this.nome = nome;
@@ -75,5 +76,13 @@ public class Restaurante {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public void ativar() {
+        this.ativo = true;
+    }
+
+    public void inativar() {
+        this.ativo = false;
     }
 }
