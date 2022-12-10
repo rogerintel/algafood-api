@@ -4,6 +4,7 @@ import com.impacto.algafood.api.assembler.RestauranteModelAssembler;
 import com.impacto.algafood.api.assembler.RestaurnateInputDisassembler;
 import com.impacto.algafood.api.model.RestauranteModel;
 import com.impacto.algafood.api.model.input.RestauranteInput;
+import com.impacto.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.impacto.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.impacto.algafood.domain.exception.NegocioException;
 import com.impacto.algafood.domain.model.Restaurante;
@@ -49,7 +50,7 @@ public class RestauranteController {
         try {
             Restaurante restaurante = restaurnateInputDisassembler.toEntity(restauranteInput);
             return restauranteModelAssembler.toModel(cadastroRestaurante.salvar(restaurante));
-        } catch (CozinhaNaoEncontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }
@@ -61,7 +62,7 @@ public class RestauranteController {
             Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(restauranteId);
             restaurnateInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
             return restauranteModelAssembler.toModel(cadastroRestaurante.salvar(restauranteAtual));
-        } catch (CozinhaNaoEncontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }

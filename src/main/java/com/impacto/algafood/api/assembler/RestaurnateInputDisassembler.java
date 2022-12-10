@@ -1,6 +1,7 @@
 package com.impacto.algafood.api.assembler;
 
 import com.impacto.algafood.api.model.input.RestauranteInput;
+import com.impacto.algafood.domain.model.Cidade;
 import com.impacto.algafood.domain.model.Cozinha;
 import com.impacto.algafood.domain.model.Restaurante;
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,10 @@ public class RestaurnateInputDisassembler {
 
     public void copyToDomainObject(RestauranteInput restauranteInput, Restaurante restaurante) {
         restaurante.setCozinha(new Cozinha());
+
+        if (restaurante.getEndereco() != null) {
+            restaurante.getEndereco().setCidade(new Cidade());
+        }
         modelMapper.map(restauranteInput, restaurante);
     }
 }
