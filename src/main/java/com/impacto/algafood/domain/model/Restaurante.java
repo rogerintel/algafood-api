@@ -54,7 +54,10 @@ public class Restaurante {
     @OneToMany(mappedBy = "restaurante")
     @ToString.Exclude
     private List<Produto> produtos = new ArrayList<>();
+
     private boolean ativo = Boolean.TRUE;
+
+    private boolean aberto = Boolean.FALSE;
 
     public Restaurante(String nome, BigDecimal taxaFrete, CozinhaModel cozinhaModel) {
         this.nome = nome;
@@ -82,6 +85,14 @@ public class Restaurante {
 
     public void inativar() {
         this.ativo = false;
+    }
+
+    public void abrir() {
+        this.aberto = true;
+    }
+
+    public void fechar() {
+        this.aberto = false;
     }
 
     public boolean removerFormaPagamento(FormaPagamento formaPagamento) {
