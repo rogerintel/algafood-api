@@ -79,6 +79,9 @@ insert into usuario(id, nome, email, senha, data_cadastro) values
 (1, 'Rogério', 'rogerio@impacto.com', '123', utc_timestamp),
 (2, 'Alice', 'alice@impacto.com', '123', utc_timestamp),
 (3, 'Samara', 'samara@impacto.com', '123', utc_timestamp),
-(4, 'Maya', 'maya@impacto.com', '123', utc_timestamp);
+(4, 'Maya', 'maya@impacto.com', '123', utc_timestamp),
+(5, 'João', 'joao_no_arm@gmail.com', '123', utc_timestamp);
 
 insert into usuario_grupo (usuario_id, grupo_id) values (1, 1), (2, 2), (3, 3), (4, 4);
+
+insert into restaurante_usuario_responsavel (restaurante_id, usuario_id) values (1, 5), (3, 5);
