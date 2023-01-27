@@ -9,7 +9,8 @@ public class NegocioException extends RuntimeException {
         super(mensagem);
     }
 
-    public NegocioException(String message, EstadoNaoEncontradoException e) {
+    public NegocioException(String message, Exception e) {
         super(message, e);
     }
+
 }

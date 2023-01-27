@@ -1,7 +1,7 @@
 package com.impacto.algafood.domain.exception;
 
-public class RestauranteNaoEncontradaException extends EntidadeNaoEncontradaException {
-    public RestauranteNaoEncontradaException(Long restauranteId) {
+public class RestauranteNaoEncontradoException extends EntidadeNaoEncontradaException {
+    public RestauranteNaoEncontradoException(Long restauranteId) {
         super(String.format("Não existe cadastro de restaurante com código %d", restauranteId));
     }
 }

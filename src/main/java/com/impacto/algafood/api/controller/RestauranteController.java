@@ -7,6 +7,7 @@ import com.impacto.algafood.api.model.input.RestauranteInput;
 import com.impacto.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.impacto.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.impacto.algafood.domain.exception.NegocioException;
+import com.impacto.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.impacto.algafood.domain.model.Restaurante;
 import com.impacto.algafood.domain.repository.RestauranteRepository;
 import com.impacto.algafood.domain.service.CadastroRestauranteService;
@@ -89,5 +90,25 @@ public class RestauranteController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void fechar(@PathVariable Long restauranteId) {
         cadastroRestaurante.fechar(restauranteId);
+    }
+
+    @PutMapping("/ativacoes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ativarMultiplos(@RequestBody List<Long> restauranteIds) {
+        try {
+            cadastroRestaurante.ativar(restauranteIds);
+        } catch (RestauranteNaoEncontradoException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+
+    @DeleteMapping("/ativacoes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inativarMultiplos(@RequestBody List<Long> restauranteIds) {
+        try {
+            cadastroRestaurante.inativar(restauranteIds);
+        } catch (RestauranteNaoEncontradoException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
     }
 }

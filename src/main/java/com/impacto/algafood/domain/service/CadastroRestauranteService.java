@@ -1,11 +1,13 @@
 package com.impacto.algafood.domain.service;
 
-import com.impacto.algafood.domain.exception.RestauranteNaoEncontradaException;
+import com.impacto.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.impacto.algafood.domain.model.*;
 import com.impacto.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class CadastroRestauranteService {
@@ -57,7 +59,7 @@ public class CadastroRestauranteService {
 
     public Restaurante buscarOuFalhar(Long restauranteId) {
         return restauranteRepository.findById(restauranteId)
-                .orElseThrow(() -> new RestauranteNaoEncontradaException(restauranteId));
+                .orElseThrow(() -> new RestauranteNaoEncontradoException(restauranteId));
     }
 
     @Transactional
@@ -102,5 +104,13 @@ public class CadastroRestauranteService {
         Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
 
         restaurante.adicionarResponsavel(usuario);
+    }
+
+    public void ativar(List<Long> restauranteIds) {
+        restauranteIds.forEach(this::ativar);
+    }
+
+    public void inativar(List<Long> restauranteIds) {
+        restauranteIds.forEach(this::inativar);
     }
 }
