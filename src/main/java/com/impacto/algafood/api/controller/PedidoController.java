@@ -1,7 +1,9 @@
 package com.impacto.algafood.api.controller;
 
 import com.impacto.algafood.api.assembler.PedidoModelAssembler;
+import com.impacto.algafood.api.assembler.PedidoResumoModelAssembler;
 import com.impacto.algafood.api.model.PedidoModel;
+import com.impacto.algafood.api.model.PedidoResumoModel;
 import com.impacto.algafood.domain.model.Pedido;
 import com.impacto.algafood.domain.repository.PedidoRepository;
 import com.impacto.algafood.domain.service.EmissaoPedidoService;
@@ -26,12 +28,15 @@ public class PedidoController {
     @Autowired
     private PedidoModelAssembler pedidoModelAssembler;
 
+    @Autowired
+    private PedidoResumoModelAssembler pedidoResumoModelAssembler;
+
     @GetMapping
-    public List<PedidoModel> listar() {
-        return pedidoModelAssembler.toCollectionModel(pedidoRepository.findAll());
+    public List<PedidoResumoModel> listar() {
+        return pedidoResumoModelAssembler.toCollectionModel(pedidoRepository.findAll());
     }
 
-    @GetMapping("{pedidoId")
+    @GetMapping("{pedidoId}")
     public PedidoModel buscar(@PathVariable Long pedidoId) {
         Pedido pedido = emissaoPedido.buscarOuFalhar(pedidoId);
         return pedidoModelAssembler.toModel(pedido);
