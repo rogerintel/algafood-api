@@ -1,9 +1,11 @@
 package com.impacto.algafood.api.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.impacto.algafood.api.assembler.RestauranteModelAssembler;
 import com.impacto.algafood.api.assembler.RestaurnateInputDisassembler;
 import com.impacto.algafood.api.model.RestauranteModel;
 import com.impacto.algafood.api.model.input.RestauranteInput;
+import com.impacto.algafood.api.model.view.RestauranteView;
 import com.impacto.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.impacto.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.impacto.algafood.domain.exception.NegocioException;
@@ -33,9 +35,16 @@ public class RestauranteController {
     @Autowired
     private CadastroRestauranteService cadastroRestaurante;
 
+    @JsonView(RestauranteView.Resumo.class)
     @GetMapping
     public List<RestauranteModel> listar() {
         return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
+    }
+
+    @JsonView(RestauranteView.ApenasNome.class)
+    @GetMapping(params = "projecao=apenas-nome")
+    public List<RestauranteModel> listarApenasNomes() {
+        return listar();
     }
 
     @GetMapping("/{restauranteId}")
