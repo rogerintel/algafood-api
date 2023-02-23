@@ -9,7 +9,7 @@ import java.util.List;
 @Setter
 public class PedidoModel {
 
-    private Long id;
+    private String codigo;
     private String nomeCliente;
     private String taxaFrete;
     private String subTotal;

@@ -90,18 +90,18 @@ insert into usuario_grupo (usuario_id, grupo_id) values (1, 1), (2, 2), (3, 3), 
 
 insert into restaurante_usuario_responsavel (restaurante_id, usuario_id) values (1, 5), (3, 5);
 
-insert into pedido (id, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep,
+insert into pedido (id, codigo, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep,
                     endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
                     status, data_criacao, subtotal, taxa_frete, valor_total)
-values (1, 1, 1, 1, 1, '00000-000', 'Rua das Laranjeiras', '100', 'Apto 101', 'Centro', 'CONFIRMADO', utc_timestamp, 78.90, 10, 88.90);
+values (1, 'f9981ca4-5a5e-4da3-af04-933861df3e55', 1, 1, 1, 1, '00000-000', 'Rua das Laranjeiras', '100', 'Apto 101', 'Centro', 'CONFIRMADO', utc_timestamp, 78.90, 10, 88.90);
 
 insert into item_pedido (id, pedido_id, produto_id, preco_unitario, quantidade, preco_total) values (1, 1, 1, 78.90, 1, 78.90);
 
 insert into item_pedido (id, pedido_id, produto_id, preco_unitario, quantidade, preco_total, observacao) values (2, 1, 2, 110, 1, 110, 'Sem molho picante');
 
-insert into pedido (id, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep,
+insert into pedido (id, codigo, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep,
                     endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
                     status, data_criacao, subtotal, taxa_frete, valor_total)
-values (2, 4, 1, 1, 1, '00000-000', 'Rua das Laranjeiras', '100', 'Apto 101', 'Centro', 'ENTREGUE', utc_timestamp, 19, 10, 29);
+values (2, 'f9981ca4-5a5e-4da3-af04-933861df3e56', 4, 1, 1, 1, '00000-000', 'Rua das Laranjeiras', '100', 'Apto 101', 'Centro', 'ENTREGUE', utc_timestamp, 19, 10, 29);
 
 insert into item_pedido (id, pedido_id, produto_id, preco_unitario, quantidade, preco_total, observacao) values (3, 2, 9, 19, 1, 19, 'Sem maionese');
