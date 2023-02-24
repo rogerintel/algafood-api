@@ -1,5 +1,7 @@
 package com.impacto.algafood.api.controller;
 
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.impacto.algafood.api.assembler.PedidoInputDisassembler;
 import com.impacto.algafood.api.assembler.PedidoModelAssembler;
 import com.impacto.algafood.api.assembler.PedidoResumoModelAssembler;
@@ -12,8 +14,10 @@ import com.impacto.algafood.domain.model.Pedido;
 import com.impacto.algafood.domain.model.Usuario;
 import com.impacto.algafood.domain.repository.PedidoRepository;
 import com.impacto.algafood.domain.service.EmissaoPedidoService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,8 +43,21 @@ public class PedidoController {
     private PedidoResumoModelAssembler pedidoResumoModelAssembler;
 
     @GetMapping
-    public List<PedidoResumoModel> listar() {
-        return pedidoResumoModelAssembler.toCollectionModel(pedidoRepository.findAll());
+    public MappingJacksonValue listar(@RequestParam (required = false) String campos) {
+        List<PedidoResumoModel> pedidoResumoModels = pedidoResumoModelAssembler.toCollectionModel(pedidoRepository.findAll());
+
+        MappingJacksonValue jacksonValue = new MappingJacksonValue(pedidoResumoModels);
+
+        SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+        filterProvider.addFilter("pedidosFilter", SimpleBeanPropertyFilter.serializeAll());
+
+        if (StringUtils.isNoneBlank(campos)) {
+            filterProvider.addFilter("pedidosFilter", SimpleBeanPropertyFilter.serializeAllExcept(campos.split(",")));
+        }
+
+        jacksonValue.setFilters(filterProvider);
+
+        return jacksonValue;
     }
 
     @PostMapping
