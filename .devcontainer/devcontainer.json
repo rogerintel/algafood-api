@@ -7,11 +7,14 @@
 
 	"features": {
 		"ghcr.io/devcontainers/features/java:1": {
-			"version": "none",
-			"installMaven": "true",
-			"installGradle": "false"
+			"version": "latest",
+			"jdkDistro": "ms",
+			"gradleVersion": "latest",
+			"mavenVersion": "latest",
+			"antVersion": "latest"
 		},
-		"ghcr.io/devcontainers-contrib/features/ant-sdkman:2": {}
+		"ghcr.io/devcontainers-contrib/features/ant-sdkman:2": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -28,7 +31,9 @@
 		"extensions": [
 			"streetsidesoftware.code-spell-checker",
 			"vscjava.vscode-java-pack",
-			"GitHub.copilot"
+			"GitHub.copilot",
+			"streetsidesoftware.code-spell-checker-portuguese-brazilian",
+			"vmware.vscode-boot-dev-pack"
 		]
 		}
 	}

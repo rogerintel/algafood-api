@@ -5,7 +5,6 @@ import com.impacto.algafood.api.assembler.ProdutoModelAssembler;
 import com.impacto.algafood.api.model.ProdutoInput;
 import com.impacto.algafood.api.model.ProdutoModel;
 import com.impacto.algafood.domain.model.Produto;
-import com.impacto.algafood.domain.repository.ProdutoRepository;
 import com.impacto.algafood.domain.service.CadastroProdutoService;
 import com.impacto.algafood.domain.service.CadastroRestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;
